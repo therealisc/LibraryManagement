@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementConsoleUI
+﻿namespace LibraryManagementConsoleUI.Helpers
 {
     internal class UserInputHelper
     {

@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementConsoleUI
+﻿namespace LibraryManagementConsoleUI.Helpers
 {
     internal class MessageHelper
     {
@@ -11,7 +11,7 @@
                               "\n2 - to show all books" +
                               "\n3 - to find available books based on title" +
                               "\n4 - to lend a book" +
-                              "\n5 - to register a book that as returned" +
+                              "\n5 - to return a book" +
                               "\nc - to clear the console" +
                               "\nx - to exit");
         }

@@ -1,4 +1,6 @@
-﻿namespace LibraryManagementConsoleUI
+﻿using LibraryManagementConsoleUI.Helpers;
+
+namespace LibraryManagementConsoleUI.BookOperations
 {
     internal class BookLending
     {

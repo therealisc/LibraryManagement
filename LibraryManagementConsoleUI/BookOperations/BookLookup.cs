@@ -1,4 +1,4 @@
-﻿namespace LibraryManagementConsoleUI
+﻿namespace LibraryManagementConsoleUI.BookOperations
 {
     internal class BookLookup
     {
