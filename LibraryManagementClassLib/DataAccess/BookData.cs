@@ -11,40 +11,63 @@ namespace LibraryManagementClassLib.DataAccess
                 new BookModel
                 {
                     Id = "13e24",
-                    Name = "The Great Gatsby",
+                    Title = "The Great Gatsby",
                     Author = "F. Scott Fitzgerald",
-                    LendingPrice = 15.25m,
+                    LendingDelayPrice = 15.25m,
                     Isbn = "ISBN-1324"
                 },
                 new BookModel
                 {
                     Id = "132f4",
-                    Name = "The Great Gatsby",
+                    Title = "The Great Gatsby",
                     Author = "F. Scott Fitzgerald",
-                    LendingPrice = 15.25m,
+                    LendingDelayPrice = 15.25m,
                     Isbn = "ISBN-1325"
                 },
                 new BookModel
                 {
                     Id = "132d4",
-                    Name = "The Will to Meaning",
+                    Title = "The Will to Meaning",
                     Author = "Victor Frankl",
-                    LendingPrice = 20.50m,
+                    LendingDelayPrice = 20.50m,
                     Isbn = "ISBN-1326"
                 },
                 new BookModel
                 {
                     Id = "13s24",
-                    Name = "Taming the Infinite",
+                    Title = "Taming the Infinite",
                     Author = "Ian Stewart",
-                    LendingPrice = 18.75m,
+                    LendingDelayPrice = 18.75m,
                     Isbn = "ISBN-1327"
                 }
             };
         }
-        public List<BookModel> GetBooks()
+        public List<BookModel> GetAllBooks()
         {
             return BookStore;
+        }
+
+        public List<BookModel> GetAllBooksByTitle(string title)
+        {
+            return BookStore
+                .Where(x => x.Title.ToLower() == title.ToLower())
+                .ToList();
+        }
+
+        public List<BookModel> GetAvailableBooksByTitle(string title)
+        {
+            var books = GetAllBooksByTitle(title);
+            return books
+                .Where(x => x.LendingDate == null)
+                .ToList();
+        }
+
+        public List<BookModel> GetLentBooksByTitle(string title)
+        {
+            var books = GetAllBooksByTitle(title);
+            return books
+                .Where(x => x.LendingDate != null)
+                .ToList();
         }
 
         public void AddBook(BookModel book)

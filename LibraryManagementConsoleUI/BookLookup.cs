@@ -1,40 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LibraryManagementConsoleUI
+﻿namespace LibraryManagementConsoleUI
 {
     internal class BookLookup
     {
-        void GetAllBooks()
+        private readonly BookData _bookData;
+
+        public BookLookup(BookData bookData)
+        {
+            _bookData = bookData;
+        }
+
+        internal void GetAllBooks()
         {
             Console.WriteLine("Books in library:\n");
-
-            var books = bookData.GetBooks();
+            var books = _bookData.GetAllBooks();
 
             foreach (var book in books)
             {
-                Console.WriteLine(book.Name);
+                Console.WriteLine(book.Title);
             }
         }
 
-        void FindAvailableBooksByTitle()
+        internal void FindAvailableBooksByTitle()
         {
             Console.WriteLine("Enter the name of the book you want to find:");
-            string userIput = Console.ReadLine().ToLower();
+            string userIput = Console.ReadLine();
 
-            var books = bookData.GetBooks()
-                .Where(x => x.Name.ToLower() == userIput);
+            var books = _bookData.GetAvailableBooksByTitle(userIput);
 
             if (books.Any())
             {
-                Console.WriteLine($"{books.Count()} book(s) available");
+                Console.WriteLine($"{books.Count} book(s) available");
             }
             else
             {
-                Console.WriteLine("No matching books!");
+                Console.WriteLine("Unavailable book!");
             }
         }
     }
