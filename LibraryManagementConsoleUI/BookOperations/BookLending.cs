@@ -34,7 +34,7 @@
             Console.WriteLine("Type the ID of the book you want to return:");
             int bookId = (int)UserInputHelper.GetDecimalUserInput();
 
-            BookModel book = _bookData.GetLentBookId(bookId);
+            BookModel book = _bookData.GetLentBookById(bookId);
 
             if (book is null)
             {

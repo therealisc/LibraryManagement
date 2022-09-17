@@ -61,7 +61,7 @@ namespace LibraryManagementClassLib.DataAccess
                 .FirstOrDefault(x => x.Id == id);
         }
 
-        public BookModel GetLentBookId(int id) 
+        public BookModel GetLentBookById(int id) 
         {
             return BookStore
                 .Where(x => x.LendingDate != null)
