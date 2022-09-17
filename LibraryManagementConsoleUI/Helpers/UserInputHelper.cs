@@ -1,4 +1,6 @@
-﻿namespace LibraryManagementConsoleUI.Helpers
+﻿using System.Text.RegularExpressions;
+
+namespace LibraryManagementConsoleUI.Helpers
 {
     internal class UserInputHelper
     {
@@ -27,6 +29,19 @@
             }
 
             return decimalInput;
+        }
+
+        public static string GetValidIsbnUserInput()
+        {
+            string input = Console.ReadLine();
+
+            while (Regex.IsMatch(input, @"[0-9]*[-| ][0-9]*[-| ][0-9]*[-| ][0-9]*[-| ][0-9]*") == false)
+            {
+                Console.WriteLine("Invalid ISBN! Try again!");
+                input = Console.ReadLine();
+            }
+
+            return input.Trim();
         }
     }
 }

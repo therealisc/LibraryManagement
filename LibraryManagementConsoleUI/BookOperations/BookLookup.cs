@@ -16,24 +16,30 @@
 
             foreach (var book in books)
             {
-                Console.WriteLine(book.Title);
+                Console.WriteLine($"{book.Id} | {book.Isbn} | {book.Title}");
             }
         }
 
-        internal void FindAvailableBooksByTitle()
+        internal void FindSpecificBook()
         {
-            Console.WriteLine("Enter the name of the book you want to find:");
-            string userIput = Console.ReadLine();
+            Console.WriteLine("Enter the publication element (forth string) of the ISBN:");
+            string isbnPublicationElement = UserInputHelper.GetDecimalUserInput().ToString();
 
-            var books = _bookData.GetAvailableBooksByTitle(userIput);
+            var books = _bookData.GetSpecificBook(isbnPublicationElement);
+
+            var availableBooks = books
+                .Where(x => x.LendingDate == null)
+                .Count();
 
             if (books.Any())
             {
-                Console.WriteLine($"{books.Count} book(s) available");
+                Console.WriteLine($"{availableBooks} book(s) availabe from a total of {books.Count} book(s):");
+                foreach(var book in books)
+                    Console.WriteLine($"{book.Id} | {book.Isbn} | {book.Title} | {book.Author} | {(book.LendingDate is null ? "available" : "lent")}");
             }
             else
             {
-                Console.WriteLine("Unavailable book!");
+                Console.WriteLine("That book does not exist in the library!");
             }
         }
     }

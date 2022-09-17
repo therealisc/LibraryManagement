@@ -10,35 +10,35 @@ namespace LibraryManagementClassLib.DataAccess
             {
                 new BookModel
                 {
-                    Id = "13e24",
+                    Id = 1,
                     Title = "The Great Gatsby",
                     Author = "F. Scott Fitzgerald",
                     LendingDelayPrice = 15.25m,
-                    Isbn = "ISBN-1324"
+                    Isbn = "978-0-7432-7356-5"
                 },
                 new BookModel
                 {
-                    Id = "132f4",
+                    Id = 2,
                     Title = "The Great Gatsby",
                     Author = "F. Scott Fitzgerald",
                     LendingDelayPrice = 15.25m,
-                    Isbn = "ISBN-1325"
+                    Isbn = "978-0-7432-7356-5"
                 },
                 new BookModel
                 {
-                    Id = "132d4",
+                    Id = 3,
                     Title = "The Will to Meaning",
                     Author = "Victor Frankl",
                     LendingDelayPrice = 20.50m,
-                    Isbn = "ISBN-1326"
+                    Isbn = "978-606-40-1003-2"
                 },
                 new BookModel
                 {
-                    Id = "13s24",
+                    Id = 4,
                     Title = "Taming the Infinite",
                     Author = "Ian Stewart",
                     LendingDelayPrice = 18.75m,
-                    Isbn = "ISBN-1327"
+                    Isbn = "978-162-36-5474-0"
                 }
             };
         }
@@ -47,32 +47,57 @@ namespace LibraryManagementClassLib.DataAccess
             return BookStore;
         }
 
-        public List<BookModel> GetAllBooksByTitle(string title)
+        public List<BookModel> GetSpecificBook(string isbnPublicationElement)
         {
             return BookStore
-                .Where(x => x.Title.ToLower() == title.ToLower())
+                .Where(x => x.Isbn.Split("-")[3] == isbnPublicationElement)
                 .ToList();
         }
 
-        public List<BookModel> GetAvailableBooksByTitle(string title)
+        public BookModel GetBookById(int id)
         {
-            var books = GetAllBooksByTitle(title);
-            return books
+            return BookStore
                 .Where(x => x.LendingDate == null)
-                .ToList();
+                .FirstOrDefault(x => x.Id == id);
         }
 
-        public List<BookModel> GetLentBooksByTitle(string title)
+        public BookModel GetLentBookId(int id) 
         {
-            var books = GetAllBooksByTitle(title);
-            return books
+            return BookStore
                 .Where(x => x.LendingDate != null)
-                .ToList();
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public void AddBook(BookModel book)
         {
+            book.Id = IdLookup();
             BookStore.Add(book);
+        }
+
+        public bool IsbnLookup(string isbn)
+        {
+            var existentBook = BookStore.FirstOrDefault(x => x.Isbn == isbn);
+            if (existentBook != null)
+            {
+                BookModel book = new()
+                {
+                    Isbn = existentBook.Isbn,
+                    Title = existentBook.Title,
+                    Author = existentBook.Author
+                };
+
+                AddBook(book);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private int IdLookup()
+        {
+            return BookStore.Last().Id + 1;
         }
 
         public static List<BookModel> BookStore { get; set; } 

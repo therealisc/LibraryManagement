@@ -13,14 +13,20 @@
         {
             BookModel book = new();
 
+            Console.WriteLine("Enter the ISBN:");
+            book.Isbn = UserInputHelper.GetValidIsbnUserInput();
+
+            if (_bookData.IsbnLookup(book.Isbn))
+            {
+                Console.WriteLine("This book is in the library. A copy was added!");
+                return;
+            }
+
             Console.WriteLine("Enter the name of the book:");
             book.Title = UserInputHelper.GetStringUserInput();
 
             Console.WriteLine("Enter the name of the writer (optional):");
             book.Author = Console.ReadLine();
-
-            Console.WriteLine("Enter the ISBN:");
-            book.Isbn = UserInputHelper.GetStringUserInput();
 
             Console.WriteLine("Enter the lending price:");
             book.LendingDelayPrice = Convert.ToDecimal(UserInputHelper.GetDecimalUserInput());

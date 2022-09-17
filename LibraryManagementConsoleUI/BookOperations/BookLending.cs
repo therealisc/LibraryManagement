@@ -1,6 +1,4 @@
-﻿using LibraryManagementConsoleUI.Helpers;
-
-namespace LibraryManagementConsoleUI.BookOperations
+﻿namespace LibraryManagementConsoleUI.BookOperations
 {
     internal class BookLending
     {
@@ -15,10 +13,10 @@ namespace LibraryManagementConsoleUI.BookOperations
 
         public void LendBook()
         {
-            Console.WriteLine("Type the name of the book you want to lend:");
-            string bookName = UserInputHelper.GetStringUserInput();
+            Console.WriteLine("Type the ID of the book you want to lend:");
+            int bookId = (int)UserInputHelper.GetDecimalUserInput();
 
-            BookModel book = _bookData.GetAvailableBooksByTitle(bookName).FirstOrDefault();
+            BookModel book = _bookData.GetBookById(bookId);
 
             if (book is null)
             {
@@ -33,10 +31,10 @@ namespace LibraryManagementConsoleUI.BookOperations
 
         public void ReturnBook()
         {
-            Console.WriteLine("Type the name of the book you want to return:");
-            string bookName = UserInputHelper.GetStringUserInput();
+            Console.WriteLine("Type the ID of the book you want to return:");
+            int bookId = (int)UserInputHelper.GetDecimalUserInput();
 
-            BookModel book = _bookData.GetLentBooksByTitle(bookName).FirstOrDefault();
+            BookModel book = _bookData.GetLentBookId(bookId);
 
             if (book is null)
             {

@@ -39,7 +39,7 @@ namespace LibraryManagementConsoleUI
                         break;
 
                     case "3":
-                        _bookLookup.FindAvailableBooksByTitle();
+                        _bookLookup.FindSpecificBook();
                         break;
 
                     case "4":
